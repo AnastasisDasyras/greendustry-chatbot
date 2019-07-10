@@ -1,0 +1,15 @@
+{
+  "name": "greendustry-chatbot",
+  "description": "The server side for chatbot.",
+  "image": "heroku/python",
+  "repository": "https://github.com/AnastasisDasyras/greendustry-chatbot",
+  "keywords": ["python", "flask" ],
+  "addons": [ "heroku-postgresql" ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "server.py test"
+      }
+    }
+  }
+}
