@@ -7,6 +7,7 @@ app = Flask(__name__)
 port = int(os.environ["PORT"])
 print(port)
 
+
 @app.route('/', methods=['POST'])
 def index():
     # update data from thingspeak
@@ -93,7 +94,7 @@ def index():
                 flag = True
                 break
 
-    #randomly change orders' status
+    # randomly change orders' status
 
     return jsonify(status=200, replies=[{'type': 'text',
                                          'content': final_display}])
@@ -101,7 +102,7 @@ def index():
 
 @app.route('/errors', methods=['POST'])
 def errors():
-    print json.loads(request.get_data())
+    print (json.loads(request.get_data())
     return jsonify(status=200)
 
 
