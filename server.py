@@ -22,8 +22,16 @@ def index():
 
   # get data from chatbot
     data = json.loads(request.get_data())
+  # get data from thing speak
     orders = json.loads(read_orders.text)
     orders_num = orders['channel']['last_entry_id']
+    my_stock = orders['feeds'][int(orders_num)-1]['field1']
+        stock_info = [x.strip() for x in my_stock.split(',')]
+        tomato_stock = stock_info[-4]
+        cucumber_stock = stock_info[-3]
+        carrot_stock = stock_info[-2]
+        pepper_stock = stock_info[-1]
+
 
   # order product
     if data['conversation']['memory']['inor']['value'] == 'order' and data['conversation']['skill'] == 'confirm-order':
@@ -70,12 +78,6 @@ def index():
             flag = True
         
         #check kilos are asked with stock
-        my_stock = orders['feeds'][int(orders_num)-1]['field1']
-        stock_info = [x.strip() for x in my_stock.split(',')]
-        tomato_stock = stock_info[-4]
-        cucumber_stock = stock_info[-3]
-        carrot_stock = stock_info[-2]
-        pepper_stock = stock_info[-1]
         if(vegetable=='tomato'):
             if(kilos < stock_info[-4]):
                 kilos_flag = True
@@ -131,12 +133,6 @@ def index():
         #show the warehouse stock
         flag = True
         kilos_flag = True
-        my_stock = orders['feeds'][int(orders_num)-1]['field1']
-        stock_info = [x.strip() for x in my_stock.split(',')]
-        tomato_stock = stock_info[-4]
-        cucumber_stock = stock_info[-3]
-        carrot_stock = stock_info[-2]
-        pepper_stock = stock_info[-1]
         final_display = 'Stock Availability in kilos: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
 
     # randomly change orders' status TO-DO
