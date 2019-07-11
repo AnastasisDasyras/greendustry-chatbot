@@ -6,11 +6,11 @@ import os
 app = Flask(__name__)
 port = int(os.environ["PORT"])
 print(port)
-flag = False
 
 
 @app.route('/', methods=['POST'])
 def index():
+    flag = False
     # update data from thingspeak
     read_orders = requests.get(
         'https://api.thingspeak.com/channels/819280/feeds.json?api_key=O0DH98MWTHDMNX57&results=1000')
