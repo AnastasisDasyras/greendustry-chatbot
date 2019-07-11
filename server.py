@@ -15,6 +15,7 @@ def index():
     CARROT_VALUE = 0.7
     PEPPER_VALUE = 1.2
     flag = False
+    kilos_flag = True
     # update data from thingspeak
     read_orders = requests.get(
         'https://api.thingspeak.com/channels/819280/feeds.json?api_key=O0DH98MWTHDMNX57&results=1000')
@@ -30,6 +31,7 @@ def index():
             custid = data['conversation']['memory']['custid']['raw']
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
+
             # has to go to the thingspeak and get the data for custid
 
             for i in range(int(orders_num)):
@@ -66,9 +68,25 @@ def index():
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
             flag = True
+        
+        #check kilos are asked with stock
+        my_stock = orders['feeds'][int(orders_num)-1]['field1']
+        stock_info = [x.strip() for x in my_stock.split(',')]
+        if(vegetable=='tomato'):
+            if(kilos > stock_info[-4]):
+                kilos_flag = False
+        elif(vegetable=='cucumber'):
+            if(kilos > stock_info[-3]):
+                kilos_flag = False
+        elif(vegetable=='carrot'):
+            if(kilos > stock_info[-2]):
+                kilos_flag = False
+        else:
+            if(kilos > stock_info[-1]):
+                kilos_flag = False
 
         # create new orderid
-        if(flag):
+        if(flag and kilos_flag):
             my_string = orders['feeds'][int(orders_num)-1]['field1']
             infos = [x.strip() for x in my_string.split(',')]
             previous_order = infos[-7].split('-')
@@ -109,12 +127,12 @@ def index():
         cucumber_stock = stock_info[-3]
         carrot_stock = stock_info[-2]
         pepper_stock = stock_info[-1]
-        final_display = 'Availability: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
+        final_display = 'Stock Availability in kilos: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
 
     # randomly change orders' status
 
-    if not(flag):
-        final_display = 'Sorry something went wrong in your order. Please check your customer id'
+    if (not(flag) and kilos_flag):
+        final_display = 'Sorry something went wrong in your order. Please check your customer id(if you have one) or the amount you want to order'
     return jsonify(status=200, replies=[{'type': 'text',
                                          'content': final_display}])
 
