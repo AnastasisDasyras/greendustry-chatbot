@@ -128,6 +128,7 @@ def index():
             if(my_orderid == data['conversation']['memory']['orderid']['value']):
                 final_display = 'Your order status: ' + infolist[-8]
                 flag = True
+                kilos_flag = True
                 break
     elif(data['conversation']['skill'] == 'order'):
         #show the warehouse stock
