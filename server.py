@@ -80,7 +80,7 @@ def index():
                 orderid = str(po[0])+"-"+str(po[1])
 
             # create an order and save the client's info
-            final_display = str(custid)+','+fullname+','+location+','+email + \
+            final_display = 'Thank you your order will be shipped immediately \n'+str(custid)+','+fullname+','+location+','+email + \
                 ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos
             payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
             requests.post('https://api.thingspeak.com/update', params=payload)
