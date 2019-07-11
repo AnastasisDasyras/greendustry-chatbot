@@ -126,6 +126,7 @@ def index():
     elif(data['conversation']['skill'] == 'order'):
         #show the warehouse stock
         flag = True
+        kilos_flag = True
         my_stock = orders['feeds'][int(orders_num)-1]['field1']
         stock_info = [x.strip() for x in my_stock.split(',')]
         tomato_stock = stock_info[-4]
