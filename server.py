@@ -146,7 +146,7 @@ def index():
         else:
             total_cost = PEPPER_VALUE * float(data['conversation']['memory']['num']['raw'])
             total_cost = round(total_cost,2)
-            final_display = 'Total cost: ' + str(total_cost)
+        final_display = 'Total cost: ' + str(total_cost)
         flag = True
         kilos_flag = True
     
