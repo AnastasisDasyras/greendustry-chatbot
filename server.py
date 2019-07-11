@@ -94,7 +94,8 @@ def index():
             if((int(kilos) < int(stock_info[-1]))):
                 kilos_flag = True
                 pepper_stock = int(stock_info[-1]) - int(kilos)
-        print(kilos_flag)
+        #make the only flag left true to show the wright message
+        info_flag = True
         # create new orderid
         if(flag and kilos_flag):
             my_string = orders['feeds'][int(orders_num)-1]['field1']
