@@ -138,13 +138,15 @@ def index():
     #show how much cost the order
     elif(data['conversation']['skill'] == 'how-many-kilos'):
         if(data['conversation']['memory']['veg']['value']=='tomato'):
-            final_display = TOMATO_VALUE * float(data['conversation']['memory']['num']['raw'])
+            total_cost = TOMATO_VALUE * float(data['conversation']['memory']['num']['raw'])
         elif(data['conversation']['memory']['veg']['value']=='cucumber'):
-            final_display = CUCUMBER_VALUE * float(data['conversation']['memory']['num']['raw'])
+            total_cost = CUCUMBER_VALUE * float(data['conversation']['memory']['num']['raw'])
         elif(data['conversation']['memory']['veg']['value']=='carrot'):
-            final_display = CARROT_VALUE * float(data['conversation']['memory']['num']['raw'])
+            total_cost = CARROT_VALUE * float(data['conversation']['memory']['num']['raw'])
         else:
-            final_display = PEPPER_VALUE * float(data['conversation']['memory']['num']['raw'])
+            total_cost = PEPPER_VALUE * float(data['conversation']['memory']['num']['raw'])
+            total_cost = round(total_cost,2)
+            final_display = 'Total cost: ' + str(total_cost)
         flag = True
         kilos_flag = True
     
