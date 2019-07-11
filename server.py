@@ -40,7 +40,6 @@ def index():
             custid = data['conversation']['memory']['custid']['raw']
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
-            print(kilos_flag)
             # has to go to the thingspeak and get the data for custid
 
             for i in range(int(orders_num)):
@@ -77,8 +76,7 @@ def index():
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
             flag = True
-        print (vegetable)
-        print (kilos)
+
         #check kilos are asked with stock
         if(vegetable=='tomato'):
             if(int(kilos) < int(stock_info[-4])):
@@ -137,6 +135,7 @@ def index():
         #show the warehouse stock
         flag = True
         kilos_flag = True
+        info_flag = True
         final_display = 'Stock Availability in kilos: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
     #show how much cost the order
     elif(data['conversation']['skill'] == 'how-many-kilos'):
@@ -152,6 +151,7 @@ def index():
         final_display = 'Total cost: ' + str(total_cost)
         flag = True
         kilos_flag = True
+        info_flag = True
     
     # randomly change orders' status TO-DO
 
