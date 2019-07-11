@@ -76,7 +76,8 @@ def index():
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
             flag = True
-        
+        print (vegetable)
+        print (kilos)
         #check kilos are asked with stock
         if(vegetable=='tomato'):
             if(kilos < stock_info[-4]):
