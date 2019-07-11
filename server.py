@@ -15,7 +15,7 @@ def index():
     CARROT_VALUE = 0.7
     PEPPER_VALUE = 1.2
     flag = False
-    kilos_flag = True
+    kilos_flag = False
     # update data from thingspeak
     read_orders = requests.get(
         'https://api.thingspeak.com/channels/819280/feeds.json?api_key=O0DH98MWTHDMNX57&results=1000')
@@ -73,17 +73,21 @@ def index():
         my_stock = orders['feeds'][int(orders_num)-1]['field1']
         stock_info = [x.strip() for x in my_stock.split(',')]
         if(vegetable=='tomato'):
-            if(kilos > stock_info[-4]):
-                kilos_flag = False
+            if(kilos < stock_info[-4]):
+                kilos_flag = True
+                tomato_stock = stock_info[-4] - kilos
         elif(vegetable=='cucumber'):
-            if(kilos > stock_info[-3]):
-                kilos_flag = False
+            if(kilos < stock_info[-3]):
+                kilos_flag = True
+                cucumber_stock = stock_info[-3] - kilos
         elif(vegetable=='carrot'):
-            if(kilos > stock_info[-2]):
-                kilos_flag = False
+            if(kilos < stock_info[-2]):
+                kilos_flag = True
+                carrot_stock = stock_info[-2] - kilos
         else:
-            if(kilos > stock_info[-1]):
-                kilos_flag = False
+            if(kilos < stock_info[-1]):
+                kilos_flag = True
+                pepper_stock = stock_info[-1] - kilos
 
         # create new orderid
         if(flag and kilos_flag):
@@ -101,9 +105,10 @@ def index():
             else:
                 orderid = str(po[0])+"-"+str(po[1])
 
+
             # create an order and save the client's info
             final_display = str(custid)+','+fullname+','+location+','+email + \
-                ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos
+                ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos+','+tomato_stock+','+cucumber_stock+','+carrot_stock+','+pepper_stock
             payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
             requests.post('https://api.thingspeak.com/update', params=payload)
 
@@ -129,7 +134,7 @@ def index():
         pepper_stock = stock_info[-1]
         final_display = 'Stock Availability in kilos: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
 
-    # randomly change orders' status
+    # randomly change orders' status TO-DO
 
     if not(flag):
         final_display = 'Sorry something went wrong in your order. Please check your customer id'
