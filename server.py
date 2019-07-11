@@ -16,6 +16,7 @@ def index():
     PEPPER_VALUE = 1.2
     flag = False
     kilos_flag = False
+    info_flag = False
     # update data from thingspeak
     read_orders = requests.get(
         'https://api.thingspeak.com/channels/819280/feeds.json?api_key=O0DH98MWTHDMNX57&results=1000')
@@ -130,6 +131,7 @@ def index():
                 final_display = 'Your order status: ' + infolist[-8]
                 flag = True
                 kilos_flag = True
+                info_flag = True
                 #break #We will remove break to take the final status of the order which will be updated randomly
     elif(data['conversation']['skill'] == 'order'):
         #show the warehouse stock
@@ -157,6 +159,8 @@ def index():
         final_display = 'Sorry something went wrong in your order. Please check your customer id'
     if not(kilos_flag):
         final_display = 'Sorry something went wrong in your order. Please check your order amount'
+    if not(info_flag):
+        final_display = 'Sorry something went wrong in your order. Please check your order id'
     return jsonify(status=200, replies=[{'type': 'text',
                                          'content': final_display}])
 
