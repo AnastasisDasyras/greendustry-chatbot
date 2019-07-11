@@ -6,6 +6,7 @@ import os
 app = Flask(__name__)
 port = int(os.environ["PORT"])
 print(port)
+flag = False
 
 
 @app.route('/', methods=['POST'])
@@ -31,6 +32,7 @@ def index():
                 my_string = orders['feeds'][i]['field1']
                 infos = [x.strip() for x in my_string.split(',')]
                 if(custid == infos[0]):
+                    flag = True
                     fullname = infos[1]
                     location = infos[2] + ", " + infos[3]
                     # some location have more informaiton
@@ -59,31 +61,32 @@ def index():
             status = 'ready to be shipped'
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
+            flag = True
 
         # create new orderid
-        my_string = orders['feeds'][int(orders_num)-1]['field1']
-        infos = [x.strip() for x in my_string.split(',')]
-        previous_order = infos[-3].split('-')
-        if(int(previous_order[1]) < 999):
-            po = [int(previous_order[0]), int(previous_order[1])+1]
-        else:
-            po = [int(previous_order[0])+1, 0]
-        if(len(str(po[1])) == 1):
-            orderid = str(po[0])+"-00"+str(po[1])
-        elif(len(str(po[1])) == 2):
-            orderid = str(po[0])+"-0"+str(po[1])
-        else:
-            orderid = str(po[0])+"-"+str(po[1])
+        if(flag):
+            my_string = orders['feeds'][int(orders_num)-1]['field1']
+            infos = [x.strip() for x in my_string.split(',')]
+            previous_order = infos[-3].split('-')
+            if(int(previous_order[1]) < 999):
+                po = [int(previous_order[0]), int(previous_order[1])+1]
+            else:
+                po = [int(previous_order[0])+1, 0]
+            if(len(str(po[1])) == 1):
+                orderid = str(po[0])+"-00"+str(po[1])
+            elif(len(str(po[1])) == 2):
+                orderid = str(po[0])+"-0"+str(po[1])
+            else:
+                orderid = str(po[0])+"-"+str(po[1])
 
-        # create an order and save the client's info
-        final_display = str(custid)+','+fullname+','+location+','+email + \
-            ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos
-        payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
-        requests.post('https://api.thingspeak.com/update', params=payload)
+            # create an order and save the client's info
+            final_display = str(custid)+','+fullname+','+location+','+email + \
+                ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos
+            payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
+            requests.post('https://api.thingspeak.com/update', params=payload)
 
     # just need information
     else:
-        flag = False
         # search the order
         for i in range(int(orders_num)):
             my_order = orders['feeds'][i]['field1']
@@ -96,6 +99,8 @@ def index():
 
     # randomly change orders' status
 
+    if not(flag):
+        final_display = 'Sorry something went wrong in your order. Please check your customer id'
     return jsonify(status=200, replies=[{'type': 'text',
                                          'content': final_display}])
 
@@ -104,5 +109,5 @@ def index():
 def errors():
   print(json.loads(request.get_data()))
   return jsonify(status=200)
-
+  
 app.run(port=port, host="0.0.0.0")
