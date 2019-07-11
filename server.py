@@ -103,7 +103,7 @@ def index():
     elif(data['conversation']['skill'] == 'order'):
         #show the warehouse stock
         my_stock = orders['feeds'][int(orders_num)-1]['field1']
-        stock_info = [x.strip() for x in my_string.split(',')]
+        stock_info = [x.strip() for x in my_stock.split(',')]
         tomato_stock = stock_info[-4]
         cucumber_stock = stock_info[-3]
         carrot_stock = stock_info[-2]
