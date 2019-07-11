@@ -75,19 +75,19 @@ def index():
         if(vegetable=='tomato'):
             if(kilos < stock_info[-4]):
                 kilos_flag = True
-                tomato_stock = stock_info[-4] - kilos
+                tomato_stock = int(stock_info[-4]) - int(kilos)
         elif(vegetable=='cucumber'):
             if(kilos < stock_info[-3]):
                 kilos_flag = True
-                cucumber_stock = stock_info[-3] - kilos
+                cucumber_stock = int(stock_info[-3]) - int(kilos)
         elif(vegetable=='carrot'):
             if(kilos < stock_info[-2]):
                 kilos_flag = True
-                carrot_stock = stock_info[-2] - kilos
+                carrot_stock = int(stock_info[-2]) - int(kilos)
         else:
             if(kilos < stock_info[-1]):
                 kilos_flag = True
-                pepper_stock = stock_info[-1] - kilos
+                pepper_stock = int(stock_info[-1]) - int(kilos)
 
         # create new orderid
         if(flag and kilos_flag):
@@ -108,7 +108,7 @@ def index():
 
             # create an order and save the client's info
             final_display = str(custid)+','+fullname+','+location+','+email + \
-                ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos+','+tomato_stock+','+cucumber_stock+','+carrot_stock+','+pepper_stock
+                ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos+','+str(tomato_stock)+','+str(cucumber_stock)+','+str(carrot_stock)+','+str(pepper_stock)
             payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
             requests.post('https://api.thingspeak.com/update', params=payload)
 
