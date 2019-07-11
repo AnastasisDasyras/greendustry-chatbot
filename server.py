@@ -39,7 +39,7 @@ def index():
             custid = data['conversation']['memory']['custid']['raw']
             vegetable = data['conversation']['memory']['veg']['value']
             kilos = data['conversation']['memory']['num']['raw']
-
+            print(kilos_flag)
             # has to go to the thingspeak and get the data for custid
 
             for i in range(int(orders_num)):
@@ -94,7 +94,7 @@ def index():
             if(kilos < stock_info[-1]):
                 kilos_flag = True
                 pepper_stock = int(stock_info[-1]) - int(kilos)
-
+        print(kilos_flag)
         # create new orderid
         if(flag and kilos_flag):
             my_string = orders['feeds'][int(orders_num)-1]['field1']
