@@ -26,11 +26,11 @@ def index():
     orders = json.loads(read_orders.text)
     orders_num = orders['channel']['last_entry_id']
     my_stock = orders['feeds'][int(orders_num)-1]['field1']
-        stock_info = [x.strip() for x in my_stock.split(',')]
-        tomato_stock = stock_info[-4]
-        cucumber_stock = stock_info[-3]
-        carrot_stock = stock_info[-2]
-        pepper_stock = stock_info[-1]
+    stock_info = [x.strip() for x in my_stock.split(',')]
+    tomato_stock = stock_info[-4]
+    cucumber_stock = stock_info[-3]
+    carrot_stock = stock_info[-2]
+    pepper_stock = stock_info[-1]
 
 
   # order product
