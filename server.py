@@ -131,8 +131,10 @@ def index():
 
     # randomly change orders' status
 
-    if (not(flag) and kilos_flag):
-        final_display = 'Sorry something went wrong in your order. Please check your customer id(if you have one) or the amount you want to order'
+    if not(flag):
+        final_display = 'Sorry something went wrong in your order. Please check your customer id'
+    if not(kilos_flag):
+        final_display = 'Sorry something went wrong in your order. Please check your order amount'
     return jsonify(status=200, replies=[{'type': 'text',
                                          'content': final_display}])
 
