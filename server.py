@@ -129,13 +129,25 @@ def index():
                 final_display = 'Your order status: ' + infolist[-8]
                 flag = True
                 kilos_flag = True
-                break
+                #break #We will remove break to take the final status of the order which will be updated randomly
     elif(data['conversation']['skill'] == 'order'):
         #show the warehouse stock
         flag = True
         kilos_flag = True
         final_display = 'Stock Availability in kilos: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
-
+    #show how much cost the order
+    elif(data['conversation']['skill'] == 'how-many-kilos'):
+        if(data['conversation']['memory']['veg']['value']=='tomato'):
+            final_display = TOMATO_VALUE * data['conversation']['memory']['num']['raw']
+        elif(data['conversation']['memory']['veg']['value']=='cucumber'):
+            final_display = CUCUMBER_VALUE * data['conversation']['memory']['num']['raw']
+        elif(data['conversation']['memory']['veg']['value']=='carrot'):
+            final_display = CARROT_VALUE * data['conversation']['memory']['num']['raw']
+        else:
+            final_display = PEPPER_VALUE * data['conversation']['memory']['num']['raw']
+        flag = True
+        kilos_flag = True
+    
     # randomly change orders' status TO-DO
 
     if not(flag):
