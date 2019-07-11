@@ -80,19 +80,19 @@ def index():
         print (kilos)
         #check kilos are asked with stock
         if(vegetable=='tomato'):
-            if(kilos < stock_info[-4]):
+            if(int(kilos) < int(stock_info[-4])):
                 kilos_flag = True
                 tomato_stock = int(stock_info[-4]) - int(kilos)
         elif(vegetable=='cucumber'):
-            if(kilos < stock_info[-3]):
+            if((int(kilos) < int(stock_info[-3]))):
                 kilos_flag = True
                 cucumber_stock = int(stock_info[-3]) - int(kilos)
         elif(vegetable=='carrot'):
-            if(kilos < stock_info[-2]):
+            if((int(kilos) < int(stock_info[-2]))):
                 kilos_flag = True
                 carrot_stock = int(stock_info[-2]) - int(kilos)
         else:
-            if(kilos < stock_info[-1]):
+            if((int(kilos) < int(stock_info[-1]))):
                 kilos_flag = True
                 pepper_stock = int(stock_info[-1]) - int(kilos)
         print(kilos_flag)
