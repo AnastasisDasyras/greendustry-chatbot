@@ -106,8 +106,9 @@ def index():
         stock_info = [x.strip() for x in my_string.split(',')]
         tomato_stock = stock_info[-4]
         cucumber_stock = stock_info[-3]
-        carrot_Stock = stock_info[-2]
-        pepper_Stock = stock_info[-1]
+        carrot_stock = stock_info[-2]
+        pepper_stock = stock_info[-1]
+        final_display = 'Availability: \nTomatoes: '+str(tomato_stock)+'\nCucumbers: '+str(cucumber_stock)+'\nCarrots: '+str(carrot_stock)+'\nPeppers: '+str(pepper_stock)
 
     # randomly change orders' status
 
