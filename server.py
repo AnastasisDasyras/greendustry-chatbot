@@ -11,10 +11,10 @@ print(port)
 
 @app.route('/', methods=['POST'])
 def index():
-    TOMATO_VALUE = 0.75
-    CUCUMBER_VALUE = 0.5
-    CARROT_VALUE = 0.7
-    PEPPER_VALUE = 1.2
+    TOMATO_VALUE = 1.4
+    CUCUMBER_VALUE = 1.25
+    CARROT_VALUE = 1
+    PEPPER_VALUE = 1.9
     flag = False
     kilos_flag = False
     info_flag = False
@@ -50,7 +50,7 @@ def index():
                     flag = True
                     fullname = infos[1]
                     location = infos[2] + ", " + infos[3]
-                    # some location have more informaiton
+                    # some locations have more information
                     i = 1
                     while (not('@' in infos[3+i])):
                         location = location + ', ' + infos[3+i]
@@ -59,7 +59,7 @@ def index():
                     zipcode = infos[-9]
                     status = 'ready to be shipped'
                     #print (infos[0]+" "+infos[1]+" "+infos[2]+" "+infos[3]+" "+infos[4]+" "+infos[5]+" "+vegetable+" "+kilos)
-                    #break
+                    break
         else:
             fullname = data['conversation']['memory']['person']['fullname']
             location = data['conversation']['memory']['location']['formatted']
