@@ -103,26 +103,101 @@ def index():
             sender_email = "greendustry4.0@gmail.com"  # Enter your address
             receiver_email = "anastasisdasy@gmail.com"  # Enter receiver address
             password = 'SpanosDasyras12'
+            tom = cuc = car = pep = False
             if(int(tomato_stock)<=3000):
-                #one line break separates header from body
+                tom = True
+            if(int(cucumber_stock)<=3000):
+                cuc = True
+            if(int(carrot_stock)<=3000):
+                car = True
+            if(int(pepper_stock)<=3000):
+                pep = True
+            if(tom and cuc and car and pep):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes, cucumbers, carrots and peppers. Our stocks are very low."""
+            elif(tom and cuc and car):
+                 #two line breaks separate header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes, cucumbers and carrots. Our stocks are very low."""
+            elif(tom and cuc and pep):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes, cucumbers and peppers. Our stocks are very low."""
+            elif(tom and pep and car):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes, peppers and carrots. Our stocks are very low."""
+            elif(pep and cuc and car):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order peppers, cucumbers and carrots. Our stocks are very low."""
+            elif(tom and cuc):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes and cucumbers. Our stocks are very low."""
+            elif(pep and cuc):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order peppers and cucumbers. Our stocks are very low."""
+            elif(car and cuc):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order carrots and cucumbers. Our stocks are very low."""
+            elif(tom and car):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes and carrots. Our stocks are very low."""
+            elif(tom and pep):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes and peppers. Our stocks are very low."""
+            elif(car and pep):
+                 #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order carrots and peppers. Our stocks are very low."""
+            elif(tom):
+                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
                 We need to order tomatoes. Our stock is very low."""
-            elif(int(cucumber_stock)<=3000):
-                #one line break separates header from body
+            elif(cuc):
+                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
                 We need to order cucumbers. Our stock is very low."""
-            elif(int(carrot_stock)<=3000):
-                #one line break separates header from body
+            elif(car):
+                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
                 We need to order carrots. Our stock is very low."""
             else:
-                #one line break separates header from body
+                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
