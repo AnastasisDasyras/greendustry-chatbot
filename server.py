@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import json
 import requests
 import os
+import smtplib, ssl
 
 app = Flask(__name__)
 port = int(os.environ["PORT"])
@@ -77,7 +78,7 @@ def index():
             kilos = data['conversation']['memory']['num']['raw']
             flag = True
 
-        #check kilos are asked with stock
+        #check kilos are asked with stock and update values
         if(vegetable=='tomato'):
             if(int(kilos) < int(stock_info[-4])):
                 kilos_flag = True
@@ -94,6 +95,42 @@ def index():
             if((int(kilos) < int(stock_info[-1]))):
                 kilos_flag = True
                 pepper_stock = int(stock_info[-1]) - int(kilos)
+
+        # Send email alert about low stock
+        if(tomato_stock<=3000 or cucumber_stock<=3000 or carrot_stock<=3000 or pepper_stock<=3000):
+            port = 465  # For SSL
+            smtp_server = "smtp.gmail.com"
+            sender_email = "greendustry4.0@gmail.com"  # Enter your address
+            receiver_email = "anastasisdasy@gmail.com"  # Enter receiver address
+            password = 'SpanosDasyras12'
+            if(tomato_stock<=3000):
+                #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order tomatoes. Our stock is very low."""
+            elif(cucumber_stock<=3000):
+                #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order cucumbers. Our stock is very low."""
+            elif(carrot_stock<=3000):
+                #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order carrots. Our stock is very low."""
+            else:
+                #one line break separates header from body
+                message = """\
+                Subject: STOCK ALERT
+
+                We need to order peppers. Our stock is very low."""
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(smtp_server, port) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, message)
         #make the only flag left true to show the wright message
         info_flag = True
         # create new orderid
