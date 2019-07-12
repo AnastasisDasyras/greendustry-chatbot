@@ -97,7 +97,7 @@ def index():
                 pepper_stock = int(stock_info[-1]) - int(kilos)
 
         # Send email alert about low stock
-        if(tomato_stock<=3000 or cucumber_stock<=3000 or carrot_stock<=3000 or pepper_stock<=3000):
+        if((int(tomato_stock)<=3000)) or (int(cucumber_stock)<=3000)) or (int(carrot_stock)<=3000)) or (int(pepper_stock)<=3000))):
             port = 465  # For SSL
             smtp_server = "smtp.gmail.com"
             sender_email = "greendustry4.0@gmail.com"  # Enter your address
