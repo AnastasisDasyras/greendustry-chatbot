@@ -103,19 +103,19 @@ def index():
             sender_email = "greendustry4.0@gmail.com"  # Enter your address
             receiver_email = "anastasisdasy@gmail.com"  # Enter receiver address
             password = 'SpanosDasyras12'
-            if(tomato_stock<=3000):
+            if(int(tomato_stock)<=3000):
                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
                 We need to order tomatoes. Our stock is very low."""
-            elif(cucumber_stock<=3000):
+            elif(int(cucumber_stock)<=3000):
                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
 
                 We need to order cucumbers. Our stock is very low."""
-            elif(carrot_stock<=3000):
+            elif(int(carrot_stock)<=3000):
                 #one line break separates header from body
                 message = """\
                 Subject: STOCK ALERT
