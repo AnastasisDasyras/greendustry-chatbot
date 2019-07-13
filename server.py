@@ -98,7 +98,7 @@ def index():
 
         # Send email alert about low stock
         if(int(tomato_stock)<=3000 or int(cucumber_stock)<=3000 or int(carrot_stock)<=3000 or int(pepper_stock)<=3000):
-            port = 465  # For SSL
+            gport = 465  # For SSL
             smtp_server = "smtp.gmail.com"
             sender_email = "greendustry4.0@gmail.com"  # Enter your address
             receiver_email = "anastasisdasy@gmail.com"  # Enter receiver address
@@ -203,7 +203,7 @@ def index():
 
                 We need to order peppers. Our stock is very low."""
             context = ssl.create_default_context()
-            with smtplib.SMTP_SSL(smtp_server, port) as server:
+            with smtplib.SMTP_SSL(smtp_server, gport) as server:
                 server.login(sender_email, password)
                 server.sendmail(sender_email, receiver_email, message)
         #make the only flag left true to show the wright message
@@ -260,7 +260,7 @@ def index():
             total_cost = CARROT_VALUE * float(data['conversation']['memory']['num']['raw'])
         else:
             total_cost = PEPPER_VALUE * float(data['conversation']['memory']['num']['raw'])
-            total_cost = round(total_cost,2)
+        total_cost = round(total_cost,2)
         final_display = 'Total cost: ' + str(total_cost)
         flag = True
         kilos_flag = True
