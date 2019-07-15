@@ -231,7 +231,7 @@ def index():
             payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
             requests.post('https://api.thingspeak.com/update', params=payload)
             # display info of client on chatbot
-            final_display = 'ORDER\n'+'Customer id: '+str(custid)+'\nFullname: '+fullname+'\nVegetable: '+vegetable+'\nkilos'+kilos+'\nOrder id: '+orderid
+            final_display = 'ORDER\n'+'Customer id: '+str(custid)+'\nFullname: '+fullname+'\nVegetable: '+vegetable+'\nkilos: '+kilos+'\nOrder id: '+orderid
 
     # just need information
     elif (data['conversation']['skill'] == 'information'):
