@@ -67,11 +67,11 @@ def index():
             zipcode = data['conversation']['memory']['postal code']['raw']
             # create customer id
             if(len(str(orders_num)) == 1):
-                custid = 'a00'+str(int(orders_num+1))
+                custid = 'abcd00'+str(int(orders_num+1))
             elif(len(str(orders_num)) == 2):
-                custid = 'a0' + str(int(orders_num+1))
+                custid = 'abcd0' + str(int(orders_num+1))
             else:
-                custid = 'a' + str(int(orders_num+1))
+                custid = 'abcd' + str(int(orders_num+1))
 
             status = 'ready to be shipped'
             vegetable = data['conversation']['memory']['veg']['value']
@@ -225,11 +225,13 @@ def index():
                 orderid = str(po[0])+"-"+str(po[1])
 
 
-            # create an order and save the client's info
+            # create an order and save the client's info to thingspeak
             final_display = str(custid)+','+fullname+','+location+','+email + \
                 ','+zipcode+','+status+','+orderid+','+vegetable+','+kilos+','+str(tomato_stock)+','+str(cucumber_stock)+','+str(carrot_stock)+','+str(pepper_stock)
             payload = {'api_key': 'P7P4BWK57W19AG1J', 'field1': final_display}
             requests.post('https://api.thingspeak.com/update', params=payload)
+            # display info of client on chatbot
+            final_display = 'ORDER\n'+'Customer id: '+str(custid)+'\nFullname: '+fullname+'\nVegetable: '+vegetable+'\nkilos'+kilos+'Order id: '+orderid
 
     # just need information
     elif (data['conversation']['skill'] == 'information'):
