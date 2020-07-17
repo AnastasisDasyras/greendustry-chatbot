@@ -1,2 +1,2 @@
 # greendustry-chatbot
-Our company's chatbot
+Our company's chatbot. We work with SAP Conversational AI to be able to automate customer service in the virtual company that we created. The chabot can track an order and inform customer for the status of this order. Moreover, customers can make a new order by interacting with the chatbot. The code was deployed on HEROKU which is a platform as a service based on a managed container system.
